@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Searchbar from './components/Searchbar';
 import ImageGallery from './components/ImageGallery';
+import { Toaster } from 'react-hot-toast';
 
 class App extends Component {
   state = {
@@ -18,6 +19,7 @@ class App extends Component {
     const { resultImageName } = this.state;
     return (
       <div>
+        <Toaster />
         <Searchbar onSubmit={this.submitForm} />
         <ImageGallery imageName={resultImageName} />
       </div>

@@ -6,6 +6,7 @@ import ModalWindow from './ModalWindow';
 import { GalleryList } from './styled/ImageGallery.styled';
 import fetchApi from '../service/fetch';
 import PropTypes from 'prop-types';
+import toast from 'react-hot-toast';
 
 class ImageGallery extends Component {
   state = {
@@ -28,15 +29,20 @@ class ImageGallery extends Component {
         };
       });
 
-      fetchApi(nextName, 1).then(data =>
-        this.setState(prevState => {
-          return {
-            image: data.hits,
-            status: 'resolved',
-            page: prevState.page + 1,
-          };
-        }),
-      );
+      fetchApi(nextName, 1).then(data => {
+        if (data.total === 0) {
+          toast.error(`Изображения не найдены.`);
+          return this.setState({ status: 'idle' });
+        } else {
+          return this.setState(prevState => {
+            return {
+              image: data.hits,
+              status: 'resolved',
+              page: prevState.page + 1,
+            };
+          });
+        }
+      });
     }
   }
 

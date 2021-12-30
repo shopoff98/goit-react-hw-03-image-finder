@@ -8,6 +8,7 @@ import {
 } from './styled/Searchbar.styled';
 import PropTypes from 'prop-types';
 import { ReactComponent as SearchIcon } from '../icons/search.svg';
+import toast from 'react-hot-toast';
 
 class Searchbar extends Component {
   state = {
@@ -25,7 +26,7 @@ class Searchbar extends Component {
     const { imageName } = this.state;
     e.preventDefault();
     if (imageName === '') {
-      return;
+      return toast.error(`И что по-твоему мне вводить?`);
     }
     this.props.onSubmit(imageName);
     this.setState({
